@@ -262,6 +262,7 @@ def setup_package():
                         'threadpoolctl>={}'.format(THREADPOOLCTL_MIN_VERSION)
                     ],
                     package_data={'': ['*.pxd']},
+                    py_modules=[],
                     **extra_setuptools_args)
 
     if len(sys.argv) == 1 or (
