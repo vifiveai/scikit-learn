@@ -954,7 +954,7 @@ def check_dict_unchanged(name, estimator_orig):
 
     X = _pairwise_estimator_convert_X(X, estimator_orig)
 
-    y = X[:, 0].astype(np.int)
+    y = X[:, 0].astype(int)
     estimator = clone(estimator_orig)
     y = _enforce_estimator_tags_y(estimator, y)
     if hasattr(estimator, "n_components"):
@@ -1047,7 +1047,7 @@ def check_fit2d_predict1d(name, estimator_orig):
     rnd = np.random.RandomState(0)
     X = 3 * rnd.uniform(size=(20, 3))
     X = _pairwise_estimator_convert_X(X, estimator_orig)
-    y = X[:, 0].astype(np.int)
+    y = X[:, 0].astype(int)
     tags = estimator_orig._get_tags()
     estimator = clone(estimator_orig)
     y = _enforce_estimator_tags_y(estimator, y)
@@ -1130,7 +1130,7 @@ def check_fit2d_1sample(name, estimator_orig):
     X = 3 * rnd.uniform(size=(1, 10))
     X = _pairwise_estimator_convert_X(X, estimator_orig)
 
-    y = X[:, 0].astype(np.int)
+    y = X[:, 0].astype(int)
     estimator = clone(estimator_orig)
     y = _enforce_estimator_tags_y(estimator, y)
 
@@ -1162,7 +1162,7 @@ def check_fit2d_1feature(name, estimator_orig):
     rnd = np.random.RandomState(0)
     X = 3 * rnd.uniform(size=(10, 1))
     X = _pairwise_estimator_convert_X(X, estimator_orig)
-    y = X[:, 0].astype(np.int)
+    y = X[:, 0].astype(int)
     estimator = clone(estimator_orig)
     y = _enforce_estimator_tags_y(estimator, y)
 
@@ -1194,7 +1194,7 @@ def check_fit1d(name, estimator_orig):
     # check fitting 1d X array raises a ValueError
     rnd = np.random.RandomState(0)
     X = 3 * rnd.uniform(size=(20))
-    y = X.astype(np.int)
+    y = X.astype(int)
     estimator = clone(estimator_orig)
     tags = estimator._get_tags()
     if tags["no_validation"]:
@@ -1621,7 +1621,7 @@ def check_classifier_multioutput(name, estimator):
             "multioutput data is incorrect. Expected {}, got {}."
             .format((n_samples, n_classes), decision.shape))
 
-        dec_pred = (decision > 0).astype(np.int)
+        dec_pred = (decision > 0).astype(int)
         dec_exp = estimator.classes_[dec_pred]
         assert_array_equal(dec_exp, y_pred)
 
@@ -1635,7 +1635,7 @@ def check_classifier_multioutput(name, estimator):
                     " incorrect. Expected {}, got {}."
                     .format((n_samples, 2), y_prob[i].shape))
                 assert_array_equal(
-                    np.argmax(y_prob[i], axis=1).astype(np.int),
+                    np.argmax(y_prob[i], axis=1).astype(int),
                     y_pred[:, i]
                 )
         elif not tags['poor_score']:
@@ -1866,7 +1866,7 @@ def check_classifiers_train(name, classifier_orig, readonly_memmap=False,
                         assert decision.shape == (n_samples,)
                     else:
                         assert decision.shape == (n_samples, 1)
-                    dec_pred = (decision.ravel() > 0).astype(np.int)
+                    dec_pred = (decision.ravel() > 0).astype(int)
                     assert_array_equal(dec_pred, y_pred)
                 else:
                     assert decision.shape == (n_samples, n_classes)
@@ -1962,7 +1962,7 @@ def check_outliers_train(name, estimator_orig, readonly_memmap=True):
     assert_raises(ValueError, estimator.predict, X.T)
 
     # decision_function agrees with predict
-    dec_pred = (decision >= 0).astype(np.int)
+    dec_pred = (decision >= 0).astype(int)
     dec_pred[dec_pred == 0] = -1
     assert_array_equal(dec_pred, y_pred)
 
@@ -2126,7 +2126,7 @@ def check_classifiers_predictions(X, y, name, classifier_orig):
         decision = classifier.decision_function(X)
         assert isinstance(decision, np.ndarray)
         if len(classes) == 2:
-            dec_pred = (decision.ravel() > 0).astype(np.int)
+            dec_pred = (decision.ravel() > 0).astype(int)
             dec_exp = classifier.classes_[dec_pred]
             assert_array_equal(dec_exp, y_pred,
                                err_msg="decision_function does not match "
@@ -2226,7 +2226,7 @@ def check_regressors_int(name, regressor_orig):
     # fit
     regressor_1.fit(X, y_)
     pred1 = regressor_1.predict(X)
-    regressor_2.fit(X, y_.astype(np.float))
+    regressor_2.fit(X, y_.astype(float))
     pred2 = regressor_2.predict(X)
     assert_allclose(pred1, pred2, atol=1e-2, err_msg=name)
 

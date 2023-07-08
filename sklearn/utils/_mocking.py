@@ -118,7 +118,7 @@ class CheckingClassifier(ClassifierMixin, BaseEstimator):
         """
         if self.check_X is not None:
             assert self.check_X(T)
-        return self.classes_[np.zeros(_num_samples(T), dtype=np.int)]
+        return self.classes_[np.zeros(_num_samples(T), dtype=int)]
 
     def score(self, X=None, Y=None):
         """

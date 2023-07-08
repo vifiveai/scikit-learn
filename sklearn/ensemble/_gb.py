@@ -171,7 +171,7 @@ class BaseGradientBoosting(BaseEnsemble, metaclass=ABCMeta):
                    random_state, X_idx_sorted, X_csc=None, X_csr=None):
         """Fit another stage of ``n_classes_`` trees to the boosting model. """
 
-        assert sample_mask.dtype == np.bool
+        assert sample_mask.dtype == bool
         loss = self.loss_
         original_y = y
 
@@ -521,7 +521,7 @@ class BaseGradientBoosting(BaseEnsemble, metaclass=ABCMeta):
         """
         n_samples = X.shape[0]
         do_oob = self.subsample < 1.0
-        sample_mask = np.ones((n_samples, ), dtype=np.bool)
+        sample_mask = np.ones((n_samples, ), dtype=bool)
         n_inbag = max(1, int(self.subsample * n_samples))
         loss_ = self.loss_
 
